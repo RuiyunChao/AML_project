@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ScotiaShield Alert Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    /* Reset & Basic Setup */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* Full-Page Gradient */
+    body {
+      background: linear-gradient(180deg, #ffff 0%, #ffff 100%);
+      background-size: cover;
+      background-repeat: no-repeat;
+      /* No fade animation here so the navbar remains static */
+    }
+
+    /* Fade/Slide in animation for .page-content */
+    .page-content {
+      opacity: 0;                  /* Start invisible */
+      transform: translateY(30px); /* Start slightly lower */
+      animation: fadeInSlide 1.5s ease forwards; /* 1.5s fade/slide in */
+    }
+
+    @keyframes fadeInSlide {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      background-color: #D22630;  /* Scotiabank Red */
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .navbar .nav-brand {
+      display: flex;
+      align-items: center;
+    }
+    .navbar .nav-brand a {
+      color: #fff;
+      font-size: 1.8em;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 0.5em;
+    }
+    /* Hamburger Button */
+    .nav-filters-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5em;
+      margin-right: 1em;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 30px;
+    }
+    .nav-filters-btn .bar {
+      width: 100%;
+      height: 3px;
+      background-color: #fff;
+      border-radius: 2px;
+    }
+    .navbar .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1em;
+    }
+    .navbar .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      padding: 0.5em 1em;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    .navbar .nav-links a:hover {
+      background-color: #B81F29;
+    }
+
+    /* Page Header */
+    h1 {
+      text-align: center;
+      margin: 1.5em 0 0.5em;
+      color: #D22630;
+    }
+    p {
+      text-align: center;
+      margin-bottom: 1.5em;
+      font-size: 1.1em;
+      color: #333;
+    }
+
+    /* Alert List & Cards */
+    #alert-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 1em;
+    }
+    .alert-card {
+      position: relative; /* Required for star button positioning */
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 300px;
+      background-color: #fff;
+      border-radius: 4px;
+    }
+    .alert-card.high {
+      border-left: 5px solid red;
+    }
+    .alert-card.medium {
+      border-left: 5px solid orange;
+    }
+    .alert-card.low {
+      border-left: 5px solid green;
+    }
+
+    /* Star Button */
+    .star-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5em;
+      color: #ccc; /* Default color for unstarred */
+      transition: color 0.2s ease;
+    }
+    .star-button.starred {
+      color: gold;  /* Starred (favorite) color */
+    }
+
+    /* Filters Sidebar */
+    #filters {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 400px;  /* Slightly bigger */
+      max-width: 90%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.97);
+      padding: 2em 1.5em; /* Extra vertical padding */
+      border-right: 1px solid #ccc;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      transform: translateX(-100%);
+      opacity: 0;
+      pointer-events: none;   /* Disable interaction when closed */
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      z-index: 1000;
+    }
+    /* Show sidebar when open */
+    #filters.open {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #filters h3 {
+      margin-bottom: 1em;
+      color: #D22630;
+      text-align: center;
+    }
+    /* Close Button in Sidebar */
+    #filters .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+    #filters div {
+      margin-bottom: 1em;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    #filters label {
+      min-width: 150px;
+      font-weight: bold;
+      color: #333;
+    }
+    /* Make typed text visible, bigger inputs */
+    #filters input[type="text"],
+    #filters input[type="number"],
+    #filters select {
+      padding: 0.5em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      color: #000;
+      background-color: #fff;
+      font-size: 1em;
+    }
+    #apply-filters-btn {
+      background-color: #D22630;
+      color: #fff;
+      border: none;
+      padding: 0.75em 1.5em;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: block;
+      margin: 1.5em auto 0;
+    }
+    #apply-filters-btn:hover {
+      background-color: #B81F29;
+    }
+
+    /* Min-Max Group: place label, dash, and two inputs on one line */
+    .min-max-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .min-max-group input[type="number"] {
+      width: 70px;
+      height: 40px;
+    }
+    .min-max-group span {
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar (static, no fade) -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <!-- Hamburger button placed to the left of the brand -->
+      <button id="toggle-filters-btn" class="nav-filters-btn">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      <a href="{{ url_for('index') }}">ScotiaShield&trade; - Alert Dashboard</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('show_base') }}">Home</a></li>
+      <li><a href="{{ url_for('explore') }}">Explore</a></li>
+      <li><a href="{{ url_for('show_about') }}">About</a></li>
+      <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page Content Wrapper (fades in) -->
+  <div class="page-content">
+    <!-- Alert List Section -->
+    <div id="alert-list">
+      <!-- Alert items will be loaded here via your script.js -->
+    </div>
+
+    <!-- Filters Sidebar -->
+    <div id="filters">
+      <!-- Close (X) Button -->
+      <button id="close-filters-btn" class="close-btn">&times;</button>
+      <h3>Filters</h3>
+      
+      <div>
+        <label for="customer-id-filter">Customer ID:</label>
+        <input type="text" id="customer-id-filter">
+      </div>
+      <div>
+        <label for="transaction-type-filter">Transaction Type:</label>
+        <select id="transaction-type-filter">
+          <option value="">All</option>
+          <option value="ATM">ATM</option>
+          <option value="EFT">EFT</option>
+          <option value="EMT">EMT</option>
+          <option value="WIRE">WIRE</option>
+          <option value="CARD">CARD</option>
+          <option value="CHEQUE">CHEQUE</option>
+        </select>
+      </div>
+
+      <!-- Amount Filter on one line -->
+      <div class="min-max-group">
+        <label for="amount-filter">Amount (CAD):</label>
+        <input type="number" id="amount-min-filter" placeholder="Min">
+        <span>-</span>
+        <input type="number" id="amount-max-filter" placeholder="Max">
+      </div>
+
+      <!-- Risk Score Filter on one line -->
+      <div class="min-max-group">
+        <label for="risk-score-filter">Risk Score:</label>
+        <input type="number" id="risk-score-min-filter" placeholder="Min">
+        <span>-</span>
+        <input type="number" id="risk-score-max-filter" placeholder="Max">
+      </div>
+      
+      <div>
+        <label for="rule-based-flag-filter">Rule-Based Flag:</label>
+        <select id="rule-based-flag-filter">
+          <option value="">All</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+      </div>
+      <div>
+        <label for="cash-indicator-filter">Cash Indicator:</label>
+        <select id="cash-indicator-filter">
+          <option value="">All</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+      </div>
+      <div>
+        <label for="country-filter">Country:</label>
+        <input type="text" id="country-filter">
+      </div>
+      <div>
+        <label for="province-filter">Province:</label>
+        <input type="text" id="province-filter">
+      </div>
+      <div>
+        <label for="city-filter">City:</label>
+        <input type="text" id="city-filter">
+      </div>
+      <div>
+        <label for="industry-code-filter">Industry Code:</label>
+        <input type="text" id="industry-code-filter">
+      </div>
+
+      <!-- Employee Count Filter on one line -->
+      <div class="min-max-group">
+        <label for="employee-count-filter">Employee Count:</label>
+        <input type="number" id="employee-count-min-filter" placeholder="Min">
+        <span>-</span>
+        <input type="number" id="employee-count-max-filter" placeholder="Max">
+      </div>
+
+      <!-- Sales Filter on one line -->
+      <div class="min-max-group">
+        <label for="sales-filter">Sales:</label>
+        <input type="number" id="sales-min-filter" placeholder="Min">
+        <span>-</span>
+        <input type="number" id="sales-max-filter" placeholder="Max">
+      </div>
+
+      <button id="apply-filters-btn">Apply Filters</button>
+    </div>
+  </div>
+  
+  <script src="/static/script.js"></script>
+  <script>
+    // Toggle functionality for the filters sidebar
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.getElementById('toggle-filters-btn');
+      const closeBtn = document.getElementById('close-filters-btn');
+      const filtersSection = document.getElementById('filters');
+      
+      // Toggle sidebar on hamburger button click
+      toggleBtn.addEventListener('click', function() {
+        filtersSection.classList.toggle('open');
+      });
+      
+      // Animate closing when the close button is clicked
+      closeBtn.addEventListener('click', function() {
+        filtersSection.classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>

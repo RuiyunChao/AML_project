@@ -1,0 +1,15 @@
+<!-- create_item.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Item</title>
+</head>
+<body>
+    <h2>Create a New Item</h2>
+    <form method="POST" action="{{ url_for('create_item') }}">
+        <label for="itemName">Item Name:</label>
+        <input type="text" name="itemName" id="itemName" required>
+        <button type="submit">Create</button>
+    </form>
+</body>
+</html>

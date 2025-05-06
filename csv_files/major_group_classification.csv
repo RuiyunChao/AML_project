@@ -1,0 +1,49 @@
+major_group,name
+01,Agriculture and Farming
+02,Agricultural Support and Services
+03,Fishing Industry
+04,Logging Industry
+05,Forestry Services
+06,Gold Mining
+07,Crude Oil and Natural Gas Extraction
+09,Services for Mining and Petroleum
+10,Bakery and Food Production
+16,Plastics Production
+24,Clothing and Apparel Manufacturing
+28,Printing and Publishing
+32,Metal Fabrication and Equipment Manufacturing
+37,Pharmaceuticals
+39,Specialty Manufactured Products
+40,Residential and Commercial Building Construction
+41,"Gas, Oil, and Energy Construction"
+42,Construction Trades and Finishing
+44,Construction Project Management
+45,Trucking and Freight
+46,Passenger and Taxi Services
+48,Broadcasting and Telecommunications
+49,Storage and Warehousing
+52,Food and Beverage Wholesale
+53,Pharmaceutical and Apparel Wholesale
+55,Automotive Parts Wholesale
+56,Building Materials Wholesale
+57,Industrial Machinery Wholesale
+59,General Merchandise Wholesale
+60,Grocery Stores
+62,Electronics and Appliance Stores
+63,Automotive Dealerships and Repair
+64,General Retail
+65,Specialty Stores
+72,Investment Companies
+74,Mortgage Brokers
+75,Real Estate Operators
+76,Legal and Accounting Services
+77,Management Consulting
+81,Civic Administration
+85,Educational Institutions
+86,Healthcare Providers
+91,Hotels and Lodging
+92,Restaurants and Bars
+96,Entertainment and Recreation
+97,Personal and Household Services
+98,Professional and Civic Organizations
+99,Miscellaneous Services

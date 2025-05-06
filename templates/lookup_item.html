@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lookup Item</title>
+</head>
+<body>
+    <h1>Lookup Item by EFT ID</h1>
+    <form method="POST" action="{{ url_for('lookup_item') }}">
+        <label for="eftId">EFT ID:</label>
+        <!-- Change input type from "number" to "text" -->
+        <input type="text" id="eftId" name="eftId" required>
+        <button type="submit">Lookup</button>
+    </form>
+
+    {% if record %}
+        <h2>Record Found:</h2>
+        <table border="1">
+            <tr>
+                <th>EFT ID</th>
+                <th>Customer ID</th>
+                <th>Amount (CAD)</th>
+                <th>Debit/Credit</th>
+                <th>Transaction Date</th>
+                <th>Transaction Time</th>
+            </tr>
+            <tr>
+                <td>{{ record[0] }}</td>
+                <td>{{ record[1] }}</td>
+                <td>{{ record[2] }}</td>
+                <td>{{ record[3] }}</td>
+                <td>{{ record[4] }}</td>
+                <td>{{ record[5] }}</td>
+            </tr>
+        </table>
+    {% elif record is not none %}
+        <h2>No record found with the specified EFT ID.</h2>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

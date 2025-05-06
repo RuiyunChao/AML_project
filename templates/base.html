@@ -1,0 +1,233 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ScotiaShield&trade;</title>
+  <style>
+    /* Reset & Basic Setup */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      /* Allow page to grow if content is tall */
+    }
+    
+    /* Full-Page Gradient (Sky Blue -> Soft Pink) */
+    body {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #ffff 0%, #FADADD 100%);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    /* Remove or override any white backgrounds */
+    .main-content, .info-section {
+      background: transparent !important;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #D22630;  /* Scotiabank Red */
+      padding: 0.8em 2em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .nav-brand a {
+      color: #fff;
+      font-size: 1.6em;
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+    .nav-links {
+      list-style-type: none;
+      display: flex;
+      gap: 1.5em;
+    }
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1em;
+      padding: 0.5em 1em;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .nav-links li a:hover {
+      background-color: #B81F29; /* Darker red on hover */
+    }
+
+    /* Hero Section + Fade-in Animation */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      width: 100%;
+      background-color: transparent;
+      padding: 2em;
+      
+      /* Animate in like the login window:
+         1.5s duration, "ease" timing function, start immediately (no delay),
+         fill-mode 'forwards' to keep final state. */
+      animation: fadeInSlide 1.5s ease forwards;
+    }
+    .hero h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
+      color: darkred;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .hero p {
+      font-size: 1.2em;
+      line-height: 1.5;
+      margin-bottom: 1.5em;
+      color: darkred;
+      max-width: 800px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .hero .cta-button {
+      display: inline-block;
+      background-color: #D22630;
+      color: #fff;
+      padding: 0.8em 1.5em;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .hero .cta-button:hover {
+      background-color: #B81F29;
+    }
+
+    /* Keyframes for fade and slight upward slide */
+    @keyframes fadeInSlide {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Main Content */
+    .main-content {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2em 0;
+      color: #333;
+    }
+
+    /* Transparent Info Sections */
+    .info-section {
+      background: none;
+      color: darkred;
+      margin: 4em 0;
+      padding: 2em;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .info-section h2 {
+      margin-bottom: 0.5em;
+      font-size: 1.8em;
+    }
+    .info-section p {
+      line-height: 1.5;
+      max-width: 900px;
+      margin-bottom: 1em;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1em 0;
+      background: transparent;
+      color: darkred;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      box-shadow: none;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="{{ url_for('index') }}">ScotiaShield&trade; - A Scotiabank AML Solution</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('show_base') }}">Home</a></li>
+      <li><a href="{{ url_for('explore') }}">Explore</a></li>
+      <li><a href="{{ url_for('show_about') }}">About</a></li>
+      <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section (fullscreen) with fade/slide in -->
+  <div class="hero">
+    <h1>Anti-Money Laundering</h1>
+    <p>
+      Money laundering poses a serious threat to our economy and society. 
+      Criminals funnel billions of dollars through illegal channels, 
+      harming legitimate businesses and fueling further crimes. 
+      Together, we can identify and prevent suspicious activities 
+      before they wreak havoc.
+    </p>
+    <a class="cta-button" href="{{ url_for('explore') }}">Find Money Launderers</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="info-section">
+      <h2>What is Money Laundering?</h2>
+      <p>
+        Money laundering is the process of disguising illegally obtained money
+        so that it appears to come from legitimate sources. It often involves
+        complex layers of transactions, sometimes across international borders,
+        to obscure the origin of funds.
+      </p>
+    </div>
+    <div class="info-section">
+      <h2>Why It Matters</h2>
+      <p>
+        Illicit financial flows undermine the integrity and stability of
+        financial institutions, eroding trust and damaging global economies.
+        By stopping money laundering, we reduce crime, protect legitimate
+        businesses, and help ensure a fairer society for everyone.
+      </p>
+    </div>
+
+    <!-- New Info Section about the 1.5 million transactions -->
+    <div class="info-section">
+      <h2>Solution Overview</h2>
+      <p>
+        Over <strong>1.5 million individual transactions</strong> have been meticulously analyzed using a combination 
+        of <strong>clustering</strong>, <strong>anomaly detection (autoencoders)</strong>, and <strong>rule-based filtering</strong>. 
+        This layered approach flags potentially suspicious transactions with high accuracy, while still 
+        allowing a human agent to make the final determination on which transactions require further 
+        investigation.
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Scotiabank AML Detection. All rights reserved.</p>
+  </footer>
+
+  <!-- Optional JS -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

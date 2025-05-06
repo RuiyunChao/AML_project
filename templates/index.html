@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lookup Item - ScotiaShield&trade;</title>
+  <style>
+    /* Reset & Basic Setup */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #90E0EF 0%, #FADADD 100%);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    /* Navigation Bar */
+    .navbar {
+      background-color: #D22630;  /* Scotiabank Red */
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .navbar .nav-brand a {
+      color: #fff;
+      font-size: 1.8em;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .navbar .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1em;
+    }
+    .navbar .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      padding: 0.5em 1em;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    .navbar .nav-links a:hover {
+      background-color: #B81F29;
+    }
+    /* Lookup Form Container */
+    .lookup-container {
+      background: rgba(255,255,255,0.9);
+      max-width: 500px;
+      margin: 3em auto;
+      padding: 2em;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .lookup-container h1 {
+      text-align: center;
+      margin-bottom: 1em;
+      color: #D22630;
+    }
+    .lookup-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+    .lookup-container label {
+      font-weight: bold;
+      color: #333;
+    }
+    .lookup-container input[type="text"] {
+      padding: 0.75em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+    .lookup-container button {
+      padding: 0.75em;
+      background-color: #D22630;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .lookup-container button:hover {
+      background-color: #B81F29;
+    }
+    /* Table Styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 0.75em;
+      text-align: left;
+    }
+    th {
+      background-color: #D22630;
+      color: #fff;
+    }
+    /* Back Link */
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 1em;
+      color: #D22630;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="{{ url_for('index') }}">ScotiaShield&trade;</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('explore') }}">Explore</a></li>
+      <li><a href="{{ url_for('login') }}">Login</a></li>
+      <li><a href="{{ url_for('register') }}">Register</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Lookup Form Container -->
+  <div class="lookup-container">
+    <h1>Lookup Item by EFT ID</h1>
+    <form method="POST" action="{{ url_for('lookup_item') }}">
+      <label for="eftId">EFT ID:</label>
+      <input type="text" id="eftId" name="eftId" required>
+      <button type="submit">Lookup</button>
+    </form>
+    
+    {% if record %}
+      <h2>Record Found:</h2>
+      <table>
+          <tr>
+              <th>EFT ID</th>
+              <th>Customer ID</th>
+              <th>Amount (CAD)</th>
+              <th>Debit/Credit</th>
+              <th>Transaction Date</th>
+              <th>Transaction Time</th>
+          </tr>
+          <tr>
+              <td>{{ record[0] }}</td>
+              <td>{{ record[1] }}</td>
+              <td>{{ record[2] }}</td>
+              <td>{{ record[3] }}</td>
+              <td>{{ record[4] }}</td>
+              <td>{{ record[5] }}</td>
+          </tr>
+      </table>
+    {% elif record is not none %}
+      <h2>No record found with the specified EFT ID.</h2>
+    {% endif %}
+    
+    <a class="back-link" href="{{ url_for('index') }}">Back to Home</a>
+  </div>
+</body>
+</html>

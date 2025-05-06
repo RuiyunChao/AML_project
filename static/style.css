@@ -1,0 +1,279 @@
+body {
+    font-family: sans-serif;
+}
+
+#filters {
+    padding: 10px; /* Add overall padding to the filters section */
+    border: 1px solid #ccc; /* Add a border for visual separation */
+    margin-bottom: 20px; /* Add margin to separate from the alerts */
+}
+
+#filters h3 {
+    margin-top: 0; /* Remove default top margin for h3 */
+    padding-bottom: 10px;
+}
+
+#filters > div {
+    margin-bottom: 10px; /* Add margin between filter groups */
+}
+
+#filters label {
+    display: block; /* Place labels on their own line */
+    margin-bottom: 5px; /* Add margin below labels */
+    font-weight: bold;
+}
+
+#filters input[type="text"],
+#filters input[type="number"],
+#filters select {
+    width: 100%; /* Make input fields fill the width */
+    padding: 5px; /* Add padding inside input fields */
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+/* Style for min-max filter pairs */
+#filters .min-max-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#filters .min-max-group input[type="number"] {
+    width: 48%; /* Adjust width as needed */
+}
+
+#filters .min-max-group label {
+    flex: 0 0 auto; /* Prevent the label from shrinking */
+    margin-right: 10px;
+}
+
+#apply-filters-btn {
+    padding: 8px 15px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#alert-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.alert-card {
+    background-color: #fff;          /* White background for clarity */
+    border: 1px solid #ccc;         /* Light gray border */
+    border-radius: 6px;             /* Slightly rounded corners */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Soft drop shadow */
+    padding: 15px;                  /* Spacing inside the card */
+    width: 280px;                   /* Fixed width or use a responsive approach */
+    margin: 0;                      /* If you need spacing between cards, adjust here or in container */
+    font-size: 14px;                /* Slightly smaller font for a neat layout */
+    line-height: 1.4;               /* Tighter line spacing */
+    text-align: left;               /* Left-align the text */
+  }
+
+  .alert-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #333;
+    font-weight: bold;
+  }
+  
+
+.alert-card p {
+    margin: 0.2em 0;
+    line-height: 1.5;
+    text-align: left;
+    color: #555;         /* Softer text color */
+  }
+
+  .alert-card p strong {
+    color: #333;
+    font-weight: bold;
+  }
+
+  .alert-card {
+    cursor: pointer; /* Indicate it's clickable */
+    transition: background-color 0.3s ease; /* Smooth transition */
+  }
+  
+  .alert-card:hover {
+    background-color: #e0e0e0; /* Light grey background on hover */
+  }
+  
+  
+  
+
+.high {
+    border-left: 5px solid red;
+}
+
+.medium {
+    border-left: 5px solid orange;
+}
+
+.low {
+    border-left: 5px solid green;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filter-group {
+        flex-direction: column;
+    }
+
+    .filter-item {
+        margin-right: 0;
+        min-width: 100%;
+    }
+}
+
+/* Alert Dialog */
+.alert-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 80%;
+    max-width: 800px;
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+}
+
+.dialog-header h3 {
+    margin: 0;
+}
+
+.close-dialog-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.dialog-content {
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar li a.active-tab {
+    background-color: #e9e9e9;
+    font-weight: bold;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 10px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content h4 {
+    margin-top: 0;
+}
+
+/* Add styles for tables if needed */
+.main-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.main-content th,
+.main-content td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Make typed text visible and background white */
+#filters input[type="text"],
+#filters input[type="number"],
+#filters select {
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  height: 40px;
+  font-size: 1em;
+  color: #000;            /* Ensures typed text is black */
+  background-color: #fff; /* Ensures field background is white */
+}
+
+/* Put the "Min" and "Max" fields on the same line with the label */
+.min-max-group {
+  display: flex;          /* Flex container */
+  align-items: center;    /* Vertically center items */
+  gap: 0.5em;             /* Space between items */
+  margin-bottom: 0.8em;
+}
+
+.min-max-group label {
+  margin-bottom: 0;       /* Remove default label margin */
+  flex-shrink: 0;         /* Prevent label from shrinking */
+}
+
+.min-max-group input[type="number"] {
+  width: 80px;            /* Adjust as needed */
+}
+
+.star-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: #ccc;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .star-button.starred {
+    color: gold;
+  }
+
+  #alert-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 1em;
+    justify-content: center; /* Centers cards horizontally */
+    /* align-items: center;   Centers cards vertically if there's extra height */
+  }
+  
+  

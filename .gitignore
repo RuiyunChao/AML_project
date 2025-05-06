@@ -1,0 +1,9 @@
+# Ignore virtual environment folder
+venv/
+
+# Ignore log files
+*.log
+
+
+#ignore our database file
+mydatabase.db

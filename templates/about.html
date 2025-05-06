@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About - ScotiaShield&trade;</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <style>
+    /* Reset & Basic Setup */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    /* Full-Page Gradient */
+    body {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #ffff 0%, #FADADD 100%);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    /* Navigation Bar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #D22630;  /* Scotiabank Red */
+      padding: 0.8em 2em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .nav-brand a {
+      color: #fff;
+      font-size: 1.6em;
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+    .nav-links {
+      list-style-type: none;
+      display: flex;
+      gap: 1.5em;
+    }
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1em;
+      padding: 0.5em 1em;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .nav-links li a:hover {
+      background-color: #B81F29;
+    }
+    
+    /* Hero Section for About Page */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 40vh;
+      width: 100%;
+      background-color: transparent;
+      padding: 2em;
+      animation: fadeInSlide 1.5s ease forwards;
+    }
+    .hero h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
+      color: darkred;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .hero p {
+      font-size: 1.2em;
+      line-height: 1.5;
+      margin-bottom: 1.5em;
+      color: darkred;
+      max-width: 800px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    @keyframes fadeInSlide {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Main Content */
+    .main-content {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2em 0;
+      color: #333;
+    }
+    
+    /* Info Sections */
+    .info-section {
+      background: none;
+      color: darkred;
+      margin: 4em 0;
+      padding: 2em;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .info-section h2 {
+      margin-bottom: 0.5em;
+      font-size: 1.8em;
+    }
+    .info-section p {
+      line-height: 1.5;
+      max-width: 900px;
+      margin-bottom: 1em;
+    }
+    
+    /* Authors Section (Restyled) */
+    .authors-section h2 {
+      text-align: center;
+    }
+    .authors-section .author-list {
+      display: flex;
+      flex-wrap: wrap;          /* Allows wrapping if many authors */
+      justify-content: center;  /* Centers author "cards" */
+      gap: 1em;
+      margin-top: 1.5em;
+    }
+    .authors-section .author-card {
+      background: #fff8f8;      /* Light background to stand out */
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 1em 2em;
+      min-width: 120px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .authors-section .author-card:hover {
+      transform: translateY(-2px);
+    }
+    .authors-section .author-card h4 {
+      margin: 0;
+      color: darkred;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+    .authors-section .author-desc {
+      margin-top: 1em;
+      font-size: 0.95em;
+      color: #333;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1em 0;
+      background: transparent;
+      color: darkred;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      box-shadow: none;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="{{ url_for('index') }}">ScotiaShield&trade; - A Scotiabank AML Solution</a>
+    </div>
+    <ul class="nav-links">
+        <li><a href="{{ url_for('show_base') }}">Home</a></li>
+        <li><a href="{{ url_for('explore') }}">Explore</a></li>
+        <li><a href="{{ url_for('show_about') }}">About</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section for About -->
+  <div class="hero">
+    <h1>About Our Initiative</h1>
+    <p>
+      ScotiaShield is part of the 2024-2025 IMI BIGDataAIHUB Competition – a prestigious event organized by the Institute for Management & Innovation (IMI) at the University of Toronto. This competition brings together leading academics, industry experts, and talented teams to develop innovative Big Data and AI solutions.
+    </p>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="info-section">
+      <h2>About Scotiabank</h2>
+      <p>
+        Founded in 1832, Scotiabank has grown to become one of Canada’s leading financial institutions with a robust global presence. With a commitment to innovation, customer service, and responsible banking, Scotiabank sets industry standards in risk management and AML compliance.
+      </p>
+    </div>
+    <div class="info-section">
+      <h2>About the IMI BIGDataAIHUB Competition</h2>
+      <p>
+        The IMI BIGDataAIHUB Competition is an annual event that challenges participants to tackle real-world problems using Big Data and Artificial Intelligence. Chaired by Professor Kevin Yousie and led by IMI at the University of Toronto, this competition fosters collaboration between academia and industry, pushing the boundaries of innovative research and practical applications.
+      </p>
+    </div>
+    <div class="info-section">
+      <h2>Our Approach with ScotiaShield</h2>
+      <p>
+        ScotiaShield leverages Scotiabank’s deep expertise in risk management and AML practices to build a state-of-the-art solution. Using advanced machine learning and unsupervised learning techniques, our platform identifies suspicious transactions and anomalous patterns, helping to secure the financial ecosystem and combat financial crime.
+      </p>
+    </div>
+    <div class="info-section">
+      <h2>About IMI &amp; Our Partners</h2>
+      <p>
+        The Institute for Management & Innovation (IMI) at the University of Toronto is renowned for its cutting-edge research and commitment to fostering innovation. Collaborating with industry leaders like Scotiabank, IMI creates an environment where groundbreaking ideas are transformed into practical, impactful solutions.
+      </p>
+    </div>
+
+    <!-- Authors Section (Restyled) -->
+    <div class="info-section authors-section">
+      <h2>Authors &amp; Team</h2>
+      <div class="author-list">
+        <div class="author-card">
+          <h4>Kevin Abdo</h4>
+        </div>
+        <div class="author-card">
+          <h4>Nikaran K M</h4>
+        </div>
+        <div class="author-card">
+          <h4>Ruiyun Chao</h4>
+        </div>
+        <div class="author-card">
+          <h4>Olivia Woodman</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Scotiabank AML Detection. All rights reserved.</p>
+  </footer>
+
+  <!-- Optional JS -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
